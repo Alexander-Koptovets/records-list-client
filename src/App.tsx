@@ -1,24 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+
+import { ModalTypes } from "./types";
+
+import { TableList } from "./components/Table";
+import { RecordsModal } from "./components/RecordsModal";
+import { Filter } from "./components/Filter";
+import { Button } from "@mui/material";
+
 import './App.css';
 
 function App() {
-  return (
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+
+    return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Filter />
+      <TableList />
+      <RecordsModal
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          type={ModalTypes.create}
+      />
+      <Button onClick={() => setIsOpen(true)}>
+          Create Record
+      </Button>
     </div>
   );
 }
